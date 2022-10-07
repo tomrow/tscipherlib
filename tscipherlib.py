@@ -51,25 +51,48 @@ def cscramble64(iterate,key):
     interim = interim % 255
     return interim+255
                       
-def cscramble(iterate,key):
-    interim = iterate
-    interim += (key%10)*iterate
-    interim += math.floor(iterate/3)
-    interim += iterate*2
-    interim += math.floor(9*math.sin(math.radians(iterate*2)))  #add 9sin(iterate*2) with the decimal point chopped off
-    #interim += random.randint(0,200) #REMOVE!
-    for i in range(6):
-        interimb = math.sin(math.radians(key*2)) * (2**30) #make a very big number using key*2
-        interimb = math.floor(interimb) #make it int
-        interimb = interimb*3 ^ (iterate*7) #xor (iterate*7)
-        interimc = interimb >> 5
-        interimc = interimc << 5 #chop off a few bits
-        interimd = interimc << 3 #make another one
-        interime = interimb ^ interimc
-        interime += interimd
-        interim -= interime
-    interim = interim % 255
-    return interim+255
+def cscramble(ii,kk):
+    #var a,b,c,d,e,f,r,j,expn;
+    expn=16;
+    k=kk&0xffffffff
+    i=ii&0xffffffff
+    a = i
+    #print(a)
+    a += ((k%10)*i)
+    #print(a)
+    a += math.floor(i/3)
+    #print(a)
+    a += (i*2)
+    #print(a)
+    r = math.sin(radians(i*2))
+    r = r*9
+    a += math.floor(r)
+    #print(a)
+    for j in range(6):
+        #print("for")
+        b=math.sin(radians(k*2))
+        #print("b",b)
+        b=b*(2**expn)
+        #print("b",b)
+        b=math.floor(b)
+        #print("b",b)
+        b=(b*3)^(i*7)
+        b=b&0xffffffff
+        #print("b",b)
+        c=(b>>5)&0xffffffff
+        #print("c",c)
+        c=(c<<5)&0xffffffff
+        #print("c",c)
+        d=(c<<3)&0xffffffff
+        #print("d",d)
+        e=(b^c)
+        #print("e",e)
+        e=(e+d)
+        #print("e",e)
+        i=(i-e)
+        #print("i",i)
+    i=i%255
+    return i
                        
 def cdecode(array,key):
     output = ""
