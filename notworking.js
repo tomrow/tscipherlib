@@ -7,9 +7,10 @@ function cencode(text, key) {
   output = [];
   //random.seed(key);
 
-  for (var h = 0, _pj_a = text.length; h < _pj_a; h += 1) {
+  for (var h = 0; h < text.length; h += 1) 
+  {
     i = h + 1;
-    output.push((text.charCodeAt(h) + cscramble(i, key)) % 255);
+    output.push((text.charCodeAt(h) + cscramble(i, key)) %65535);
   }
 
   return output;
@@ -152,12 +153,15 @@ function cdecodeh(stringin, key) {
 }
 
 if (true) {
-  //console.log(cdecode(cencode("hello", 1), 1));
+  console.log(cdecode(cencode("aaabbbcccdddeeefffggghhhiiijjjkkklllmmmnnnooopppqqqrrrssstttuuuvvvwwwxxxyyyzzz", 1), 1));
   //console.log(cdecodeh(cencodeh("aaabbbcccdddeeefffggghhhiiijjjkkklllmmmnnnooopppqqqrrrssstttuuuvvvwwwxxxyyyzzz", 1), 1));
-  //a = cencode("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1);
+  a = cencode("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1);
+  console.log(a.length);
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".length)
+  console.log(a)
 
-  //for (var j = 0; j<100; j += 1) {
-    //console.log(" " * Math.floor(a[j] / 2) + "#");
-    console.log(cscramble(1,1)%255);
-  //}
+//for (var j = 0; j<100; j += 1) {
+//console.log(" " * Math.floor(a[j] / 2) + "#");
+//console.log(cscramble(1,1)%255);
+//}
 }
