@@ -44,44 +44,49 @@ function cscramblem(iterate, key) {
   return interim + 255;
 }
 
-function cscramble(iterate, key) {
-  console.log("iterate");
-  console.log(iterate);
-  console.log("Key");
-  console.log(key);
-  var interim, interimb, interimc, interimd, interime;
-  interim = iterate;
-  console.log("Step 1");console.log(interim);
-  interim += (key % 10) * iterate;
-  console.log("Step 2");console.log(interim);
-  interim += Math.floor(iterate / 3);
-  console.log("Step 3");console.log(interim);
-  interim += iterate * 2;
-  console.log("Step 4");console.log(interim);
-  interim += Math.floor(9 * Math.sin(radians(iterate * 2)));
-  console.log("Step 5");console.log(interim);
-  console.log("Steps 6 through 12:");
-  for (var i = 0; i < 6; i += 1) {
-    interimb = Math.sin(radians(key * 2)) * Math.pow(2, 30);
-    console.log("interimb 1");console.log(interimb);
-    interimb = Math.floor(interimb);
-    console.log("interimb 2");console.log(interimb);
-    interimb = interimb * 3 ^ iterate * 7;
-    console.log("interimb 3");console.log(interimb);
-    interimc = interimb >> 5;
-    console.log("interimc 1");console.log(interimc);
-    interimc = interimc << 5;
-    console.log("interimc 1");console.log(interimc);
-    interimd = (interimc << 3)>>>0;
-  
-    console.log("interimd");console.log(interimd);
-    interime = interimb ^ interimc;
-    console.log("interime 1");console.log(interime);
-    interime += interimd;
-    console.log("interime 2");console.log(interime);
-    interim -= interime;
-    console.log("final");console.log(interim);
-  }
+function cscramble(i,k)
+{
+    var a,b,c,d,e,f,r,j,expn;
+    expn=16;
+    a = i;
+    //console.log(a);
+    a += ((k%10)*i);
+    //console.log(a);
+    a += Math.floor(i/3);
+    //console.log(a);
+    a += (i*2);
+    //console.log(a);
+    r = Math.sin(radians(i*2));
+    r = r*9;
+    a += Math.floor(r);
+    //console.log(a);
+    for(j=0;j<6;j+=1)
+    {
+        //console.log("for");
+        b=Math.sin(radians(k*2));
+        //console.log("b", b);
+        b=b*Math.pow(2,expn);
+        //console.log("b", b);
+        b=Math.floor(b);
+        //console.log("b", b);
+        b=(b*3)^(i*7);
+        b=b>>>0;
+        //console.log("b", b);
+        c=(b>>5)>>>0;
+        //console.log("c", c);
+        c=(c<<5)>>>0;
+        //console.log("c", c);
+        d=(c<<3)>>>0;
+        //console.log("d", d);
+        e=(b^c)>>>0;
+        //console.log("e", e);
+        e+=d;
+        //console.log("e", e);
+        i-=e;
+        //console.log("i", i);
+    }
+    i=i%255;
+    return i+255;
 
   interim = interim % 255;
   return interim + 255;
